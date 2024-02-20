@@ -18,7 +18,12 @@ const launchStatus = success ? 'Success' : 'Failure';
     </picture>
 
     <header class="p-4 flex-grow">
-        <span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+        <span class:list={[
+            "text-xs font-semibold mr-2 px-2.5 py-0.5 rounded",
+            {
+                "bg-green-500 text-green-900": success,
+                "bg-red-500 text-red-900": !success}
+        ]}>
             {launchStatus}
         </span>
 

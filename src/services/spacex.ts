@@ -25,3 +25,22 @@ export const getLaunches = async () => {
   const { docs: launches } = (await res.json()) as APIxLaunches;
   return launches;
 };
+
+export const getLaunchesOldest = async () => {
+  const res = await fetch("https://api.spacexdata.com/v5/launches/query", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: {},
+      options: {
+        flight_number: "desc",
+      },
+      limit: 12,
+    }),
+  });
+
+  const { docs: launches } = (await res.json()) as APIxLaunches;
+  return launches;
+};

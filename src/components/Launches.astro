@@ -1,0 +1,35 @@
+---
+import { type APIxLaunches } from '../types/api';
+import CardLaunch from './CardLaunch.astro';
+
+const res = await fetch('https://api.spacexdata.com/v5/launches/query', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        query: {},
+        options: {
+            date_unix: "asc",
+        },
+        limit: 12,
+    }),
+});
+
+const { docs: launches } = (await res.json()) as APIxLaunches;
+---
+
+<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+    {
+        launches.map((launch) => (
+            <CardLaunch
+                id={launch.id}
+                name={launch.name}
+                details={launch.details}
+                flightNumber={launch.flight_number}
+                success={launch.success}
+                img={launch.links.patch.small}
+            />  
+        ))
+    }
+</div>
